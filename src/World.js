@@ -89,7 +89,7 @@ class World {
     }
 
     setupPlane() {
-        const geometry = new THREE.PlaneGeometry( 100, 100 );
+        const geometry = new THREE.PlaneGeometry( 50, 100 );
         
         const textureBasePath = 'src/assets/textures/ground/Ground037_1K-PNG_';
 
@@ -121,6 +121,7 @@ class World {
         });
         
         const plane = new THREE.Mesh( geometry, material );
+        plane.position.x = 25;
         plane.rotation.x = -Math.PI / 2;
         this.scene.add(plane)
     }
@@ -285,6 +286,19 @@ class World {
                 loop: false,
                 onLoad: () => {
                     console.log('Chinese Hall loaded');
+                }
+            }
+        );
+        this.loadModel(
+            'spider_lily',
+            new THREE.Vector3(2, 0, 0),
+            new THREE.Vector3(1, 1, 1),
+            new THREE.Euler(0, -Math.PI / 2, 0),
+            {
+                playAnimations: false,
+                loop: false,
+                onLoad: () => {
+                    console.log('Spider Lily loaded');
                 }
             }
         );
