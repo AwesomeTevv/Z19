@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pokemon center
+* source:	https://sketchfab.com/3d-models/pokemon-center-1fbdfdb11eca4ded9ba63ed90a3f1e70
+* author:	chrisevilla13 (https://sketchfab.com/chrisevilla13)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pokemon center" (https://sketchfab.com/3d-models/pokemon-center-1fbdfdb11eca4ded9ba63ed90a3f1e70) by chrisevilla13 (https://sketchfab.com/chrisevilla13) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
