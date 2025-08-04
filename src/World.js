@@ -283,8 +283,8 @@ class World {
             {
                 playAnimations: false,
                 loop: false,
-                onLoad: (result) => {
-                    console.log('Shiny Marshadow loaded with animations:', result.animations.length);
+                onLoad: () => {
+                    console.log('Chinese Hall loaded');
                 }
             }
         );
