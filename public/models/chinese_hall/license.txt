@@ -1,0 +1,11 @@
+Model Information:
+* title:	Chinese Hall
+* source:	https://sketchfab.com/3d-models/chinese-hall-42672df3ccfd4215b5e4c7f4968c0969
+* author:	LsWaterPipe (https://sketchfab.com/LsWaterPipe)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Chinese Hall" (https://sketchfab.com/3d-models/chinese-hall-42672df3ccfd4215b5e4c7f4968c0969) by LsWaterPipe (https://sketchfab.com/LsWaterPipe) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
