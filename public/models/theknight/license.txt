@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hollow Knight
+* source:	https://sketchfab.com/3d-models/hollow-knight-5a76d93e39984f829abd6f406562265b
+* author:	Dasha Klyusova (https://sketchfab.com/AnoFail)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hollow Knight" (https://sketchfab.com/3d-models/hollow-knight-5a76d93e39984f829abd6f406562265b) by Dasha Klyusova (https://sketchfab.com/AnoFail) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
