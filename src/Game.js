@@ -21,7 +21,7 @@ class Game {
          * @type {THREE.PerspectiveCamera}
          */
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.camera.position.set(0, 10, 20);
+        this.camera.position.set(-100, 100, 0);
         this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         /**
@@ -31,7 +31,7 @@ class Game {
 
         this.controls.update();
 
-        this.world = World.create(this.scene, this.camera);
+        this.world = World.create(this.scene, this.camera, this.renderer);
 
         this._resize = this._resize.bind(this);
         window.addEventListener('resize', this._resize);

@@ -1,10 +1,12 @@
 import * as THREE from 'three';
 import { Colours } from './Colours';
+import { EXRLoader } from 'three/examples/jsm/Addons.js';
+import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 
 const helpersEnabled = true;
 
 class World {
-    constructor(scene, camera) {
+    constructor(scene, camera, renderer) {
         /**
          * @type {THREE.Scene}
          */
@@ -15,9 +17,19 @@ class World {
         this.camera = camera;
 
         /**
+         * @type {THREE.WebGLRenderer}
+         */
+        this.renderer = renderer;
+
+        /**
          * @type {THREE.TextureLoader}
          */
         this.textureLoader = new THREE.TextureLoader();
+
+        /**
+         * @type {GLTFLoader}
+         */
+        this.modelLoader = new GLTFLoader();
 
         // Initialising the world
         this._init();
@@ -25,8 +37,7 @@ class World {
 
     _init() {
         // Setting up the scene
-        this.scene.background = new THREE.Color().setHex(Colours.SKY); // Light Sky Blue
-        this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
+        this.setupScene();
 
         // Setting up the groun plane
         this.setupPlane();
@@ -34,13 +45,41 @@ class World {
         // Setting up the lighting of the scene
         this.setupLighting();
 
+        // Setting up the environment
+        // this.setupEnvironment();
+
         if (helpersEnabled) {
             this.helpers();
         }
     }
 
+    setupScene() {
+        this.scene.background = new THREE.Color().setHex(Colours.SKY); // Light Sky Blue
+        // this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
+
+        const exrLoader = new EXRLoader();
+        const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+        pmremGenerator.compileEquirectangularShader();
+
+        exrLoader.load(
+            'src/assets/hdris/NightSkyHDRI007_2K-HDR.exr',
+            (texture) => {
+                const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+
+                this.scene.environment = envMap;  // Used for realistic reflections/lighting
+                this.scene.background = envMap;   // Set it as sky background
+
+                texture.dispose();           // Clean up raw EXR texture
+                pmremGenerator.dispose();
+            }
+        );
+
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.0; // Adjust to taste
+    }
+
     setupPlane() {
-        const geometry = new THREE.PlaneGeometry( 1000, 1000 );
+        const geometry = new THREE.PlaneGeometry( 100, 100 );
         
         const textureBasePath = 'src/assets/textures/ground/Ground037_1K-PNG_';
 
@@ -50,7 +89,7 @@ class World {
         const displacement = this.textureLoader.load(textureBasePath + 'Displacement.png');
         const roughness = this.textureLoader.load(textureBasePath + 'Roughness.png');
 
-        const scale = 1000 / 2.1;
+        // const scale = 100 / 2.1;
 
         /**
          * @type {Array<THREE.Texture>}
@@ -58,7 +97,7 @@ class World {
         const maps = [colour, normal, ao, displacement, roughness];
         maps.map(map => {
             map.wrapS = map.wrapT = THREE.RepeatWrapping;
-            map.repeat.set(scale, scale);
+            map.repeat.set(100, 100);
         });
         
         const material = new THREE.MeshToonMaterial({
@@ -94,6 +133,25 @@ class World {
         // directionalLight.position.set(5, 10, 7.5);
         this.scene.add( directionalLight );
     }
+
+    setupEnvironment() {
+        this.modelLoader.load(
+            '/models/moutain_scroll/scene.gltf',
+            (gltf) => {
+                gltf.scene.position.set(60, -1, 0);
+                gltf.scene.scale.set(1, 1, 1);
+                gltf.scene.rotation.y = Math.PI; // rotate 180 degrees
+
+                this.scene.add(gltf.scene);
+            },
+            (xhr) => {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            (error) => {
+                console.error('An error occurred:', error);
+            }
+        );
+    }
     
     helpers() {
         const axesHelper = new THREE.AxesHelper( 500 );
@@ -107,8 +165,8 @@ class World {
         // }
     }
 
-    static create(scene, camera) {
-        return new World(scene, camera);
+    static create(scene, camera, renderer) {
+        return new World(scene, camera, renderer);
     }
 
     
