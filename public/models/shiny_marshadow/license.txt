@@ -1,0 +1,11 @@
+Model Information:
+* title:	Shiny Marshadow (Blender Animation)
+* source:	https://sketchfab.com/3d-models/shiny-marshadow-blender-animation-ea07938d99f849dba65911596958bde6
+* author:	Mariokart07 (https://sketchfab.com/Mariokart07)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Shiny Marshadow (Blender Animation)" (https://sketchfab.com/3d-models/shiny-marshadow-blender-animation-ea07938d99f849dba65911596958bde6) by Mariokart07 (https://sketchfab.com/Mariokart07) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
