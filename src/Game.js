@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import World from './World.js';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 class Game {
     constructor(canvas) {
@@ -31,6 +32,13 @@ class Game {
 
         this.controls.update();
 
+        /**
+         * @type {Stats}
+         */
+        this.stats = new Stats();
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
+
         this.world = World.create(this.scene, this.camera, this.renderer);
 
         this._resize = this._resize.bind(this);
@@ -52,12 +60,16 @@ class Game {
     }
 
     _animate() {
+        this.stats.begin();
+        
         requestAnimationFrame(this._animate);
         if (this.world && this.world.update) {
             this.world.update();
         }
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
+        
+        this.stats.end();
     }
 }
 
