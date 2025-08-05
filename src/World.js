@@ -71,33 +71,77 @@ class World {
     }
 
     setupScene() {
-        this.scene.background = new THREE.Color().setHex(Colours.SKY); // Light Sky Blue
-        this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
-
-        // const exrLoader = new EXRLoader();
-        // const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-        // pmremGenerator.compileEquirectangularShader();
-
-        // exrLoader.load(
-        //     'src/assets/hdris/NightSkyHDRI007_2K-HDR.exr',
-        //     (texture) => {
-        //         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
-
-        //         this.scene.environment = envMap;  // Used for realistic reflections/lighting
-        //         this.scene.background = envMap;   // Set it as sky background
-
-        //         texture.dispose();           // Clean up raw EXR texture
-        //         pmremGenerator.dispose();
-        //     }
-        // );
+        // Setup rotating star skybox
+        this.setupRotatingStarSkybox();
+        
+        // Optional fog effect (disabled for better star visibility)
+        // this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
 
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1.0;
         
-        // Enable shadows for spotlight eff
+        // Enable shadows for spotlight effect
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+    }
+
+    setupRotatingStarSkybox() {
+        const cubeTextureLoader = new THREE.CubeTextureLoader();
+        
+        const skyboxPath = 'src/assets/skybox/stars/';
+        
+        const skyboxTextures = [
+            skyboxPath + 'StarSkybox041.png',   // Positive X (Right)
+            skyboxPath + 'StarSkybox042.png',   // Negative X (Left)  
+            skyboxPath + 'StarSkybox043.png',   // Positive Y (Top)
+            skyboxPath + 'StarSkybox044.png',   // Negative Y (Bottom)
+            skyboxPath + 'StarSkybox045.png',   // Positive Z (Front)
+            skyboxPath + 'StarSkybox046.png'    // Negative Z (Back)
+        ];
+
+        cubeTextureLoader.load(
+            skyboxTextures,
+            (cubeTexture) => {
+                // Create a large sphere to hold the skybox for rotation
+                const skyboxGeometry = new THREE.BoxGeometry(1000, 1000, 1000);
+                
+                // Create material with the cube texture
+                const skyboxMaterial = new THREE.MeshBasicMaterial({
+                    envMap: cubeTexture,
+                    side: THREE.BackSide, // Render on the inside of the sphere
+                });
+                
+                // Create the rotating skybox mesh
+                this.rotatingSkybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+                this.scene.add(this.rotatingSkybox);
+                
+                // Also set as scene background and environment
+                this.scene.background = cubeTexture;
+                this.scene.environment = cubeTexture; // For reflections and lighting
+                
+                console.log('Star skybox loaded successfully with rotation capability');
+            },
+            (progress) => {
+                console.log('Loading star skybox:', Math.round(progress.loaded / progress.total * 100) + '%');
+            },
+            (error) => {
+                console.error('Error loading star skybox:', error);
+                // Fallback to dark space-like background
+                this.scene.background = new THREE.Color(0x000511); // Dark blue-black
+            }
+        );
+    }
+
+    /**
+     * Animate the skybox rotation
+     */
+    updateSkyboxRotation() {
+        if (this.rotatingSkybox) {
+            this.rotatingSkybox.rotation.y += 0.0005;
+            this.rotatingSkybox.rotation.x += 0.0005;
+            this.rotatingSkybox.rotation.z += 0.0005;
+        }
     }
 
     setupPlane() {
@@ -500,6 +544,9 @@ class World {
         
         // Limit delta to prevent large jumps that can cause performance issues
         const clampedDelta = Math.min(delta, 0.1);
+        
+        // Update skybox rotation
+        this.updateSkyboxRotation();
         
         // Only update mixers that have active animations
         this.animationMixers.forEach(mixer => {

@@ -27,7 +27,7 @@ html, body {
     height: 100%;
     display: block;
     z-index: 0;
-    opacity: 100%;
+    opacity: 1;
     position: absolute;
     top: 0;
     left: 0;
@@ -38,7 +38,7 @@ html, body {
     height: 100%;
     display: block;
     z-index: 1;
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
@@ -94,14 +94,14 @@ audio {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     z-index: 101;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 2s ease-out;
 }
 
