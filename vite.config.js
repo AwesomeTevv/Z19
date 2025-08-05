@@ -18,7 +18,7 @@ export default defineConfig({
       'localhost',
       '127.0.0.1',
       '.amazonaws.com',
-      'tevlen.co.za'
+      'z19.tevlen.co.za'
     ]
   },
   preview: {
