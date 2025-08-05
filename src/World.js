@@ -72,27 +72,27 @@ class World {
 
     setupScene() {
         this.scene.background = new THREE.Color().setHex(Colours.SKY); // Light Sky Blue
-        // this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
+        this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
 
-        const exrLoader = new EXRLoader();
-        const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-        pmremGenerator.compileEquirectangularShader();
+        // const exrLoader = new EXRLoader();
+        // const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+        // pmremGenerator.compileEquirectangularShader();
 
-        exrLoader.load(
-            'src/assets/hdris/NightSkyHDRI007_2K-HDR.exr',
-            (texture) => {
-                const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+        // exrLoader.load(
+        //     'src/assets/hdris/NightSkyHDRI007_2K-HDR.exr',
+        //     (texture) => {
+        //         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
-                this.scene.environment = envMap;  // Used for realistic reflections/lighting
-                this.scene.background = envMap;   // Set it as sky background
+        //         this.scene.environment = envMap;  // Used for realistic reflections/lighting
+        //         this.scene.background = envMap;   // Set it as sky background
 
-                texture.dispose();           // Clean up raw EXR texture
-                pmremGenerator.dispose();
-            }
-        );
+        //         texture.dispose();           // Clean up raw EXR texture
+        //         pmremGenerator.dispose();
+        //     }
+        // );
 
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.0;
+        // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        // this.renderer.toneMappingExposure = 1.0;
         
         // // Performance optimizations
         // this.renderer.shadowMap.enabled = false; // Disable shadows for better performance
@@ -264,21 +264,6 @@ class World {
     }
 
     setupEnvironment() {
-        // Example usage of the new loadModel function
-        // this.loadModel(
-        //     'moutain_scroll',
-        //     new THREE.Vector3(60, -1, 0),
-        //     new THREE.Vector3(1, 1, 1),
-        //     new THREE.Euler(0, Math.PI, 0),
-        //     {
-        //         playAnimations: true,
-        //         loop: true,
-        //         onLoad: (result) => {
-        //             console.log('Mountain scroll loaded with animations:', result.animations.length);
-        //         }
-        //     }
-        // );
-
         // Shiny Marshadow
         this.loadModel(
             'shiny_marshadow',
