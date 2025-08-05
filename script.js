@@ -36,7 +36,7 @@ const messages = [
     "And I hope you start celebrating yourself",
     "Because, my god, you deserve to be celebrated",
     "",
-    "Happy Birthday, Z"
+    "Happy Birthday, Z <3"
 ];
 
 const message = document.getElementById("message");
@@ -108,17 +108,23 @@ function changeMessage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const languageChoice = document.getElementById('language-choice');
+    const engBut = document.getElementById('english');
+    const manBut = document.getElementById('mandarin');
+    
     const audio = document.getElementById("bg-music");
+    audio.volume = 0.1;
 
     function startAnimation() {
-        audio.volume = 0.1;
 
         audio.play().catch(() => console.log("Autoplay blocked, waiting for user interaction."));
-        
-        songChoice.style.display = "none";
-
+        languageChoice.style.display = "none";
         changeMessage();
     }
 
-    startAnimation();
+    engBut.addEventListener("click", () => {
+        startAnimation();
+    });
+
+    manBut.addEventListener();
 });

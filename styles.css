@@ -1,10 +1,121 @@
+:root {
+    /* --primary: #40826d;
+    --secondary: #69a894;
+    --tertiary: #91cbb9;
+    --fourth: #b6e7d8;
+    --fifth: #ddfff5; */
+    --primary: #ef6351;
+    --secondary: #f38375;
+    --tertiary: #f7a399;
+    --fourth: #fbc3bc;
+    --fifth: #ffe3e0;
+}
+
 html, body {
     margin: 0;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 #main {
     width: 100%;
     height: 100%;
     display: block;
+    z-index: 0;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#message {
+    text-align: center;
+    transition: opacity 2s ease-in-out;
+    position: absolute;
+    top: 2rem;
+    font-size: 25pt;
+    z-index: 1;
+    font-family: 'Varela Round', 'Amatic SC', 'Annie Use Your Telescope';
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    letter-spacing: 0.75rem;
+    text-shadow: 1px 2px 0 red;
+    /* -webkit-text-fill-color: var(--secondary);
+    -webkit-text-stroke: 2px white; */
+    padding: 1rem;
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    /* background: white; */
+    text-shadow: 0 0 0 white;
+    color: var(--fourth);
+    animation: blink 0.7s infinite alternate;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+audio {
+    z-index: -1;
+}
+
+#language-choice {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 101;
+    /* visibility: hidden; */
+}
+
+#language-choice h2 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    flex-direction: row;
+    font-family: 'Annie Use Your Telescope';
+}
+
+#mandarin {
+    font-family: 'Kurale';
+    font-weight: 50;
+}
+
+#language-choice button {
+    font-size: 2rem;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    color: var(--secondary);
+    border-radius: 5px;
+    transition: 0.3s;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
+
+#language-choice button:hover {
+    background: var(--fourth);
 }
