@@ -91,13 +91,13 @@ class World {
         //     }
         // );
 
-        // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        // this.renderer.toneMappingExposure = 1.0;
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.0;
         
-        // // Performance optimizations
-        // this.renderer.shadowMap.enabled = false; // Disable shadows for better performance
-        // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // If shadows needed later
-        // this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        // Enable shadows for spotlight eff
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     }
 
     setupPlane() {
@@ -140,7 +140,33 @@ class World {
         const plane = new THREE.Mesh( geometry, material );
         plane.position.x = 25;
         plane.rotation.x = -Math.PI / 2;
-        this.scene.add(plane)
+        plane.receiveShadow = true; // Enable shadow receiving
+        this.scene.add(plane);
+
+        // Spotlight specifically for Spider Lily
+        this.spiderLilySpotLight = new THREE.SpotLight( 0xffffff, 100 );
+        this.spiderLilySpotLight.position.set( 1, 8, 0 ); // Position above and slightly behind the Spider Lily
+        
+        // Target the Spider Lily position
+        this.spiderLilySpotLight.target.position.set( 1, 0, 0 ); // Spider Lily position
+        
+        // Spotlight properties for dramatic effect
+        this.spiderLilySpotLight.angle = Math.PI / 6; // 30 degrees cone
+        this.spiderLilySpotLight.penumbra = 0.3; // Soft edges
+        this.spiderLilySpotLight.decay = 2; // Physical light decay
+        this.spiderLilySpotLight.distance = 10; // Light range
+        
+        // Shadow settings
+        this.spiderLilySpotLight.castShadow = true;
+        this.spiderLilySpotLight.shadow.mapSize.width = 2048;
+        this.spiderLilySpotLight.shadow.mapSize.height = 2048;
+        this.spiderLilySpotLight.shadow.camera.near = 0.5;
+        this.spiderLilySpotLight.shadow.camera.far = 20;
+        this.spiderLilySpotLight.shadow.camera.fov = 30;
+        
+        // Add both the light and its target to the scene
+        this.scene.add( this.spiderLilySpotLight );
+        this.scene.add( this.spiderLilySpotLight.target );
     }
 
     setupLighting () {
@@ -160,6 +186,7 @@ class World {
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
         // directionalLight.position.set(5, 10, 7.5);
         this.scene.add( directionalLight );
+
     }
 
     /**
@@ -333,8 +360,15 @@ class World {
             {
                 playAnimations: false,
                 loop: false,
-                onLoad: () => {
+                onLoad: (result) => {
                     console.log('Spider Lily loaded');
+                    // Enable shadow casting for the Spider Lily
+                    result.scene.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                        }
+                    });
                 }
             }
         );
