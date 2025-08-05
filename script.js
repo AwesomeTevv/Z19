@@ -1,22 +1,5 @@
 const messages = [
     "",
-    // "Hi",
-    // "So I was kinda scared to do this",
-    // "I thought you wouldn't like it",
-    // "Or it would make you feel weird",
-    // "And you still might",
-    // "But then I realised",
-    // "Today is about celebrating the people you care about",
-    // "And telling them how much they mean to you",
-    // "So I'm going to be selfish",
-    // "Deal with it",
-    // "This is my weird way of showing that you mean something to me",
-    // "My life has been a lot more fun since you entered it",
-    // "So thank you",
-    // "If nothing else",
-    // "I hope you know that you are appreciated",
-    // "",
-    // "Happy Valentine's Day"
     "Hey Z",
     "Forgive my attempt at creating a 3D scene",
     "I did my best",
@@ -39,8 +22,33 @@ const messages = [
     "Happy Birthday, Z <3"
 ];
 
+const mandarin_messages = [
+    "",
+    "嘿, Z",
+    "原谅我尝试创建3D场景",
+    "我已经尽力了",
+    "现在我把3D建模留给你 :)",
+    "但除此之外",
+    "我想祝你生日快乐",
+    "我知道你不太庆祝生日",
+    "但我想庆祝你",
+    "你值得",
+    "你是如此聪明、有趣、关心他人、可爱",
+    "你值得世界上所有的爱",
+    "你如此特别，这太疯狂了",
+    "真的，你照亮了我的世界",
+    "所以谢谢你",
+    "无论如何，我感激你",
+    "我希望你有一个美好的一天",
+    "我希望你开始庆祝自己",
+    "因为，天哪，你值得被庆祝",
+    "",
+    "生日快乐, Z <3"
+];
+
 const message = document.getElementById("message");
 let currentMessageIndex = 0;
+let selectedMessages = messages; // Default to English messages
 
 let typingSpeed = 100; // Speed of typing effect
 let deleteDelay = 1000; // Delay before deleting
@@ -57,7 +65,7 @@ function typeMessage(text, callback) {
             index++;
             setTimeout(type, typingSpeed);
         } else {
-            if (currentMessageIndex === messages.length - 1) {
+            if (currentMessageIndex === selectedMessages.length - 1) {
                 // If it's the last message, remove the cursor
                 setTimeout(() => {
                     document.querySelector(".cursor").style.display = "none";
@@ -93,8 +101,8 @@ function changeMessage() {
     message.style.opacity = 0; // Fade out effect
 
     setTimeout(() => {
-        typeMessage(messages[currentMessageIndex], () => {
-            if (currentMessageIndex < messages.length - 1) {
+        typeMessage(selectedMessages[currentMessageIndex], () => {
+            if (currentMessageIndex < selectedMessages.length - 1) {
                 setTimeout(() => {
                     deleteMessage(() => {
                         currentMessageIndex++;
@@ -109,24 +117,37 @@ function changeMessage() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const languageChoice = document.getElementById('language-choice');
+    const loadingCanvas = document.getElementById('loading');
     const engBut = document.getElementById('english');
     const manBut = document.getElementById('mandarin');
-
     const audio = document.getElementById("bg-music");
-    audio.volume = 0.1;
-
+    
     function startAnimation() {
-
+        audio.volume = 0.1;
         audio.play().catch(() => console.log("Autoplay blocked, waiting for user interaction."));
-        languageChoice.style.display = "none";
-        changeMessage();
+        
+        languageChoice.style.transition = "opacity 2s ease-out";
+        languageChoice.style.opacity = "0";
+        
+        loadingCanvas.style.transition = "opacity 8s ease-out";
+        loadingCanvas.style.opacity = "0";
+        
+        setTimeout(() => {
+            languageChoice.style.display = "none";
+            loadingCanvas.style.display = "none";
+            changeMessage();
+        }, 8000);
     }
 
     engBut.addEventListener("click", () => {
+        selectedMessages = messages;
+        message.style.fontFamily = "'Varela Round', 'Amatic SC', 'Annie Use Your Telescope'"; // Default font
         startAnimation();
     });
 
     manBut.addEventListener("click", () => {
+        selectedMessages = mandarin_messages;
+        message.style.fontFamily = "'Chiron Hei HK', sans-serif"; // Chinese font
         startAnimation();
     });
 
