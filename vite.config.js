@@ -13,7 +13,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
-    allowedHosts: 'all'
+    allowedHosts: [
+      'ec2-13-244-137-123.af-south-1.compute.amazonaws.com',
+      'localhost',
+      '127.0.0.1',
+      '.amazonaws.com',
+      'tevlen.co.za'
+    ]
   },
   preview: {
     host: '0.0.0.0',
