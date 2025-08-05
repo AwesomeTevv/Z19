@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const languageChoice = document.getElementById('language-choice');
     const engBut = document.getElementById('english');
     const manBut = document.getElementById('mandarin');
-    
+
     const audio = document.getElementById("bg-music");
     audio.volume = 0.1;
 
@@ -126,5 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
         startAnimation();
     });
 
-    manBut.addEventListener();
+    manBut.addEventListener("click", () => {
+        startAnimation();
+    });
+
 });

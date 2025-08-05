@@ -103,13 +103,14 @@ class World {
     setupPlane() {
         const geometry = new THREE.PlaneGeometry( 50, 100 );
         
-        const textureBasePath = 'src/assets/textures/ground/Ground037_1K-PNG_';
+        const textureBasePath = 'src/assets/textures/grass/2K/Poliigon_GrassPatchyGround_4585_';
+        const suffix = '.jpg';
 
-        const colour = this.textureLoader.load(textureBasePath + 'Color.png');
-        const normal = this.textureLoader.load(textureBasePath + 'NormalGL.png');
-        const ao = this.textureLoader.load(textureBasePath + 'AmbientOcclusion.png');
-        const displacement = this.textureLoader.load(textureBasePath + 'Displacement.png');
-        const roughness = this.textureLoader.load(textureBasePath + 'Roughness.png');
+        const colour = this.textureLoader.load(textureBasePath + 'BaseColor' + suffix);
+        const normal = this.textureLoader.load(textureBasePath + 'NormalGL' + suffix);
+        const ao = this.textureLoader.load(textureBasePath + 'AmbientOcclusion' + suffix);
+        const displacement = this.textureLoader.load(textureBasePath + 'Displacement' + ".tiff");
+        const roughness = this.textureLoader.load(textureBasePath + 'Roughness' + suffix);
 
         // const scale = 100 / 2.1;
 
@@ -124,13 +125,13 @@ class World {
         });
         
         const material = new THREE.MeshToonMaterial({
-            color: Colours.GROUND, // Columbia Blue
+            // color: Colours.GROUND, // Columbia Blue
             // side: THREE.DoubleSide,
-            // map: colour,
-            // normalMap: normal,
-            // // displacementMap: displacement,
-            // aoMap: ao,
-            // bumpMap: roughness
+            map: colour,
+            normalMap: normal,
+            displacementMap: displacement,
+            aoMap: ao,
+            bumpMap: roughness
         });
         
         const plane = new THREE.Mesh( geometry, material );
@@ -445,7 +446,7 @@ class World {
 
     setupGrass() {
         const positions = [
-            new THREE.Vector3(4, -0.1, 0),
+            new THREE.Vector3(4, -0.15, 0),
             new THREE.Vector3(4, -0.2, 7),
             new THREE.Vector3(4, -0.2, -6),
         ];
