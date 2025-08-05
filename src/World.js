@@ -437,10 +437,9 @@ class World {
         ];
 
         positions.forEach(position => {
-            const light = new THREE.PointLight( 0xff0000, 100, 100);
-            light.position.copy(position); // Use copy() instead of set()
+            const light = new THREE.PointLight( 0xff0000, 100, 100 );
+            light.position.copy(position);
             this.scene.add(light);
-            // console.log('Added lantern at:', position);
         });
     }
 

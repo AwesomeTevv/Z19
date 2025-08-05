@@ -1,22 +1,49 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Z!</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-</head>
-<body>
-    <!-- <script type="importmap">
-    {
-    "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@<version>/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@<version>/examples/jsm/"
-    }
-    }
-    </script> -->
-    <canvas id="main"></canvas>
-    <script type="module" src="./main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, Z</title>
+    <link rel="icon" type="image/x-icon" href="./public/images/cake.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="card.css" />
+    <script src="card.js"></script>
+  </head>
+  <body>
+    <audio id="bg-music" class="bg-music" controls autoplay loop>
+      <source
+        src="./public/audio/Paramore - Hard Times (Official Instrumental).mp3"
+        type="audio/mpeg"
+        hidden="true"
+      />
+      Your browser does not support the audio element.
+    </audio>
+    <div class="card">
+      <div class="outside">
+        <div class="front">
+          <p>Happy Birthday Dad</p>
+          <div class="cake">
+            <div class="top-layer"></div>
+            <div class="middle-layer"></div>
+            <div class="bottom-layer"></div>
+            <div class="candle"></div>
+          </div>
+        </div>
+        <div class="back"></div>
+      </div>
+      <div class="inside">
+        <p>
+          I hope you have a day that is as special as you are.
+        </p>
+        <a href="scene.html">Click here for your flower</a>
+        <h1>
+          &#127873
+        </h1>
+      </div>
+    </div>
+  </body>
 </html>

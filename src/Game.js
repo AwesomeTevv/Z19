@@ -152,11 +152,6 @@ class Game {
 
         this.isOrbitMode = false;
         console.log('Switched to FIXED camera mode');
-        console.log(`Camera at: (${this.fixedCameraPosition.x}, ${this.fixedCameraPosition.y}, ${this.fixedCameraPosition.z})`);
-        console.log(`Looking at: (${this.fixedCameraTarget.x}, ${this.fixedCameraTarget.y}, ${this.fixedCameraTarget.z})`);
-        console.log(`Direction vector: (${direction.x.toFixed(3)}, ${direction.y.toFixed(3)}, ${direction.z.toFixed(3)})`);
-        console.log(`Spherical - theta: ${spherical.theta.toFixed(3)}, phi: ${spherical.phi.toFixed(3)}`);
-        console.log(`Euler rotation: (${euler.x.toFixed(3)}, ${euler.y.toFixed(3)}, ${euler.z.toFixed(3)})`);
     }
 
     switchToOrbitCamera() {
@@ -201,9 +196,6 @@ class Game {
     setFixedCamera(position, target) {
         this.fixedCameraPosition.copy(position);
         this.fixedCameraTarget.copy(target);
-        console.log('Fixed camera settings updated!');
-        console.log(`New position: (${position.x}, ${position.y}, ${position.z})`);
-        console.log(`New target: (${target.x}, ${target.y}, ${target.z})`);
         
         if (!this.isOrbitMode) {
             // If currently in fixed mode, apply immediately using the same method as switchToFixedCamera
