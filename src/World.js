@@ -94,10 +94,10 @@ class World {
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1.0;
         
-        // Performance optimizations
-        this.renderer.shadowMap.enabled = false; // Disable shadows for better performance
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // If shadows needed later
-        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        // // Performance optimizations
+        // this.renderer.shadowMap.enabled = false; // Disable shadows for better performance
+        // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // If shadows needed later
+        // this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     }
 
     setupPlane() {
@@ -106,10 +106,13 @@ class World {
         const textureBasePath = 'src/assets/textures/grass/2K/Poliigon_GrassPatchyGround_4585_';
         const suffix = '.jpg';
 
+        // const textureBasePath = 'src/assets/textures/ground/Ground037_1K-PNG_';
+        // const suffix = '.png';
+
         const colour = this.textureLoader.load(textureBasePath + 'BaseColor' + suffix);
-        const normal = this.textureLoader.load(textureBasePath + 'NormalGL' + suffix);
+        const normal = this.textureLoader.load(textureBasePath + 'Normal' + suffix);
         const ao = this.textureLoader.load(textureBasePath + 'AmbientOcclusion' + suffix);
-        const displacement = this.textureLoader.load(textureBasePath + 'Displacement' + ".tiff");
+        const displacement = this.textureLoader.load(textureBasePath + 'Displacement' + suffix);
         const roughness = this.textureLoader.load(textureBasePath + 'Roughness' + suffix);
 
         // const scale = 100 / 2.1;
@@ -124,14 +127,14 @@ class World {
             map.generateMipmaps = true; // Enable mipmaps for better performance at distance
         });
         
-        const material = new THREE.MeshToonMaterial({
+        const material = new THREE.MeshPhongMaterial({
             // color: Colours.GROUND, // Columbia Blue
             // side: THREE.DoubleSide,
             map: colour,
             normalMap: normal,
             displacementMap: displacement,
             aoMap: ao,
-            bumpMap: roughness
+            bumpMap: roughness,
         });
         
         const plane = new THREE.Mesh( geometry, material );
