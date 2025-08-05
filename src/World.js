@@ -286,7 +286,7 @@ class World {
             new THREE.Vector3(0.5, 0.5, 0.5),
             new THREE.Euler(0, toRadians(-90 - 45), 0),
             {
-                playAnimations: false,
+                playAnimations: true,
                 loop: true,
                 onLoad: (result) => {
                     console.log('Shiny Marshadow loaded with animations:', result.animations.length);
@@ -302,8 +302,8 @@ class World {
             {
                 playAnimations: false,
                 loop: true,
-                onLoad: (result) => {
-                    console.log('Marshadow loaded with animations:', result.animations.length);
+                onLoad: () => {
+                    console.log('Marshadow loaded');
                 }
             }
         );
@@ -376,7 +376,7 @@ class World {
             new THREE.Vector3(1, 1, 1),
             new THREE.Euler(0, toRadians(-90 + 50), 0),
             {
-                playAnimations: false,
+                playAnimations: true,
                 loop: true,
                 onLoad: () => {
                     console.log('Mimkyu has been loaded');
@@ -424,7 +424,7 @@ class World {
                 playAnimations: false,
                 loop: false,
                 onLoad: () => {
-                    console.log('The Knight has been loaded');
+                    console.log('Enderman has been loaded');
                 }
             }
         );
