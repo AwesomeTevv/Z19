@@ -46,9 +46,9 @@ class Game {
         /**
          * @type {Stats}
          */
-        this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.stats.dom);
+        // this.stats = new Stats();
+        // this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        // document.body.appendChild(this.stats.dom);
 
         this.world = World.create(this.scene, this.camera, this.renderer);
 
@@ -216,7 +216,7 @@ class Game {
     // }
 
     _animate() {
-        this.stats.begin();
+        // this.stats.begin();
         
         requestAnimationFrame(this._animate);
         if (this.world && this.world.update) {
@@ -230,7 +230,7 @@ class Game {
         
         this.renderer.render(this.scene, this.camera);
         
-        this.stats.end();
+        // this.stats.end();
     }
 }
 
