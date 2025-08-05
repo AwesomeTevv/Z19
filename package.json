@@ -5,5 +5,11 @@
   },
   "devDependencies": {
     "vite": "^7.0.5"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build", 
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "start": "vite preview --host 0.0.0.0 --port 3000"
   }
 }
