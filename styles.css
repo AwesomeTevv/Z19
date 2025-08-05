@@ -4,7 +4,7 @@
     --tertiary: #91cbb9;
     --fourth: #b6e7d8;
     --fifth: #ddfff5; */
-    --primary: #ef6351;
+    --primary: #f7655e;
     --secondary: #f38375;
     --tertiary: #f7a399;
     --fourth: #fbc3bc;
@@ -50,7 +50,7 @@ html, body {
     text-align: center;
     transition: opacity 2s ease-in-out;
     position: absolute;
-    top: 2rem;
+    top: 1rem;
     font-size: 25pt;
     z-index: 2;
     font-family: 'Varela Round', 'Amatic SC', 'Annie Use Your Telescope';
@@ -107,30 +107,30 @@ audio {
 
 #language-choice h2 {
     color: var(--white);
-    font-size: 3rem;
+    font-size: 40pt;
     margin-bottom: 20px;
     flex-direction: row;
-    font-family: 'Annie Use Your Telescope';
+    font-family: 'Varela Round';
 }
 
 #mandarin {
     font-family: "Chiron Hei HK", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: bold;
     font-style: normal;
 }
 
 #language-choice button {
-    font-size: 2rem;
+    font-size: 25pt;
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
     border: none;
     background: rgba(0, 0, 0, 0);
-    color: var(--secondary);
+    color: var(--primary);
     border-radius: 5px;
     transition: 0.3s;
-    font-family: 'Amatic SC';
+    font-family: 'Varela Round';
     font-weight: bold;
 }
 
