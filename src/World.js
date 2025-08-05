@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { Colours } from './Colours';
 import { EXRLoader } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
+import { toRadians } from './helpers/mathHelpers';
 
 const helpersEnabled = true;
 
@@ -55,6 +56,12 @@ class World {
         // Setting up the lighting of the scene
         this.setupLighting();
 
+        // Setting up the Chinese lanterns
+        this.setupLanterns();
+        
+        // Setting up the grass objects
+        this.setupGrass();
+
         // Setting up the environment
         this.setupEnvironment();
 
@@ -85,7 +92,12 @@ class World {
         );
 
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.0; // Adjust to taste
+        this.renderer.toneMappingExposure = 1.0;
+        
+        // Performance optimizations
+        this.renderer.shadowMap.enabled = false; // Disable shadows for better performance
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // If shadows needed later
+        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     }
 
     setupPlane() {
@@ -107,17 +119,18 @@ class World {
         const maps = [colour, normal, ao, displacement, roughness];
         maps.map(map => {
             map.wrapS = map.wrapT = THREE.RepeatWrapping;
-            map.repeat.set(100, 100);
+            map.repeat.set(25, 50); // Further reduced for performance
+            map.generateMipmaps = true; // Enable mipmaps for better performance at distance
         });
         
         const material = new THREE.MeshToonMaterial({
-            // color: Colours.GROUND, // Columbia Blue
-            side: THREE.DoubleSide,
-            map: colour,
-            normalMap: normal,
-            // displacementMap: displacement,
-            aoMap: ao,
-            bumpMap: roughness
+            color: Colours.GROUND, // Columbia Blue
+            // side: THREE.DoubleSide,
+            // map: colour,
+            // normalMap: normal,
+            // // displacementMap: displacement,
+            // aoMap: ao,
+            // bumpMap: roughness
         });
         
         const plane = new THREE.Mesh( geometry, material );
@@ -262,23 +275,40 @@ class World {
         //     }
         // );
 
-        // this.loadModel(
-        //     'shiny_marshadow',
-        //     new THREE.Vector3(0, 0, 0),
-        //     new THREE.Vector3(1, 1, 1),
-        //     new THREE.Euler(0, -Math.PI / 2, 0),
-        //     {
-        //         playAnimations: false,
-        //         loop: true,
-        //         onLoad: (result) => {
-        //             console.log('Shiny Marshadow loaded with animations:', result.animations.length);
-        //         }
-        //     }
-        // );
-        
+        // Shiny Marshadow
+        this.loadModel(
+            'shiny_marshadow',
+            new THREE.Vector3(5, 0, 5),
+            new THREE.Vector3(0.5, 0.5, 0.5),
+            new THREE.Euler(0, toRadians(-90 - 45), 0),
+            {
+                playAnimations: false,
+                loop: true,
+                onLoad: (result) => {
+                    console.log('Shiny Marshadow loaded with animations:', result.animations.length);
+                }
+            }
+        );
+
+        this.loadModel(
+            'marshadow',
+            new THREE.Vector3(8, 0, 0),
+            new THREE.Vector3(0.5, 0.5, 0.5),
+            new THREE.Euler(0, toRadians(-90), 0),
+            {
+                playAnimations: false,
+                loop: true,
+                onLoad: (result) => {
+                    console.log('Marshadow loaded with animations:', result.animations.length);
+                }
+            }
+        );
+
+
+        // Loading the Chinese hall
         this.loadModel(
             'chinese_hall',
-            new THREE.Vector3(50, 0, 0),
+            new THREE.Vector3(25, 0, 0),
             new THREE.Vector3(0.005, 0.005, 0.005),
             new THREE.Euler(0, -Math.PI / 2, 0),
             {
@@ -289,9 +319,26 @@ class World {
                 }
             }
         );
+
+        // Loading the PokéCenter
+        this.loadModel(
+            'pokecenter',
+            new THREE.Vector3(10, 1.5, 10),
+            new THREE.Vector3(2, 2, 2), // Fixed: was Vector4, should be Vector3
+            new THREE.Euler(0, -Math.PI / 2, 0),
+            {
+                playAnimations: false,
+                loop: false,
+                onLoad: () => {
+                    console.log('PokéCenter loaded');
+                }
+            }
+        );
+
+        // Spider Lily
         this.loadModel(
             'spider_lily',
-            new THREE.Vector3(2, 0, 0),
+            new THREE.Vector3(1, 0, 0),
             new THREE.Vector3(1, 1, 1),
             new THREE.Euler(0, -Math.PI / 2, 0),
             {
@@ -302,6 +349,122 @@ class World {
                 }
             }
         );
+
+        // Hollow knight bench
+        this.loadModel(
+            'theknight',
+            new THREE.Vector3(4, 0, -2),
+            new THREE.Vector3(2, 2, 2),
+            new THREE.Euler(0, toRadians(-125), 0),
+            {
+                playAnimations: false,
+                loop: false,
+                onLoad: () => {
+                    console.log('The Knight has been loaded');
+                }
+            }
+        );
+
+        // Mimikyu
+        this.loadModel(
+            'mimikyu',
+            new THREE.Vector3(4, 0, -6),
+            new THREE.Vector3(1, 1, 1),
+            new THREE.Euler(0, toRadians(-90 + 50), 0),
+            {
+                playAnimations: false,
+                loop: true,
+                onLoad: () => {
+                    console.log('Mimkyu has been loaded');
+                }
+            }
+        );
+
+        // Spiritfarer hat
+        this.loadModel(
+            'spiritfarer',
+            new THREE.Vector3(8, 1, 3),
+            new THREE.Vector3(0.001, 0.001, 0.001),
+            new THREE.Euler(0, toRadians(0), 0),
+            {
+                playAnimations: false,
+                loop: true,
+                onLoad: () => {
+                    console.log('Spiritfarer has been loaded');
+                }
+            }
+        );
+
+        // Pig
+        this.loadModel(
+            'pig',
+            new THREE.Vector3(8, 0.6, 3),
+            new THREE.Vector3(0.05, 0.05, 0.05),
+            new THREE.Euler(0, toRadians(-90 - 15), 0),
+            {
+                playAnimations: false,
+                loop: false,
+                onLoad: () => {
+                    console.log('Pig has been loaded');
+                }
+            }
+        );
+
+        // Enderman
+        this.loadModel(
+            'enderman',
+            new THREE.Vector3(8, 0.6, 10),
+            new THREE.Vector3(0.025, 0.025, 0.025),
+            new THREE.Euler(0, toRadians(-90), 0),
+            {
+                playAnimations: false,
+                loop: false,
+                onLoad: () => {
+                    console.log('The Knight has been loaded');
+                }
+            }
+        );
+
+    }
+
+    setupLanterns() {
+        const positions = [
+            new THREE.Vector3(20, 4, 14),
+            new THREE.Vector3(20, 4, -14),
+            new THREE.Vector3(21, 8, 13),
+            new THREE.Vector3(21, 8, -13),
+            new THREE.Vector3(21, 2, 0),
+        ];
+
+        positions.forEach(position => {
+            const light = new THREE.PointLight( 0xff0000, 100, 100);
+            light.position.copy(position); // Use copy() instead of set()
+            this.scene.add(light);
+            // console.log('Added lantern at:', position);
+        });
+    }
+
+    setupGrass() {
+        const positions = [
+            new THREE.Vector3(4, -0.1, 0),
+            new THREE.Vector3(4, -0.2, 7),
+            new THREE.Vector3(4, -0.2, -6),
+        ];
+        positions.forEach((position, index) => {
+            this.loadModel(
+                'grass3',
+                position,
+                new THREE.Vector3(0.5, 0.5, 0.5),
+                new THREE.Euler(0, toRadians(90), 0),
+                {
+                    playAnimations: false,
+                    loop: false,
+                    onLoad: () => {
+                        console.log(`Grass ${index} loaded`);
+                    }
+                }
+            );
+        })
     }
     
     helpers() {
@@ -310,10 +473,21 @@ class World {
     }
 
     update() {
-        // Update all animation mixers
+        // Update all animation mixers with performance optimization
         const delta = this.clock.getDelta();
+        
+        // Limit delta to prevent large jumps that can cause performance issues
+        const clampedDelta = Math.min(delta, 0.1);
+        
+        // Only update mixers that have active animations
         this.animationMixers.forEach(mixer => {
-            mixer.update(delta);
+            if (mixer._actions && mixer._actions.length > 0) {
+                // Check if any actions are actually playing
+                const hasActiveActions = mixer._actions.some(action => action.isRunning());
+                if (hasActiveActions) {
+                    mixer.update(clampedDelta);
+                }
+            }
         });
     }
 
