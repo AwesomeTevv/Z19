@@ -138,9 +138,9 @@ class World {
      */
     updateSkyboxRotation() {
         if (this.rotatingSkybox) {
-            this.rotatingSkybox.rotation.y += 0.00001;
-            this.rotatingSkybox.rotation.x += 0.00001;
-            this.rotatingSkybox.rotation.z += 0.00001;
+            this.rotatingSkybox.rotation.y += 0.0001;
+            this.rotatingSkybox.rotation.x += 0.0001;
+            this.rotatingSkybox.rotation.z += 0.0001;
         }
     }
 
@@ -188,7 +188,7 @@ class World {
         this.scene.add(plane);
 
         // Spotlight specifically for Spider Lily
-        this.spiderLilySpotLight = new THREE.SpotLight( 0xffffff, 100 );
+        this.spiderLilySpotLight = new THREE.SpotLight( 0xffffff, 300 );
         this.spiderLilySpotLight.position.set( 1, 8, 0 ); // Position above and slightly behind the Spider Lily
         
         // Target the Spider Lily position
@@ -222,7 +222,7 @@ class World {
         const hemisphereLight = new THREE.HemisphereLight(
             Colours.SKY,   // Sky colour
             Colours.GROUND,   // Ground colour
-            1           // Intensity
+            2           // Intensity
         );
         this.scene.add( hemisphereLight );
 
@@ -450,7 +450,7 @@ class World {
         // Spiritfarer hat
         this.loadModel(
             'spiritfarer',
-            new THREE.Vector3(8, 1, 3),
+            new THREE.Vector3(4, 0.9, 2),
             new THREE.Vector3(0.001, 0.001, 0.001),
             new THREE.Euler(0, toRadians(0), 0),
             {
@@ -465,7 +465,7 @@ class World {
         // Pig
         this.loadModel(
             'pig',
-            new THREE.Vector3(8, 0.6, 3),
+            new THREE.Vector3(4, 0.5, 2),
             new THREE.Vector3(0.05, 0.05, 0.05),
             new THREE.Euler(0, toRadians(-90 - 15), 0),
             {
@@ -478,19 +478,19 @@ class World {
         );
 
         // Enderman
-        this.loadModel(
-            'enderman',
-            new THREE.Vector3(8, 0.6, 10),
-            new THREE.Vector3(0.025, 0.025, 0.025),
-            new THREE.Euler(0, toRadians(-90), 0),
-            {
-                playAnimations: false,
-                loop: false,
-                onLoad: () => {
-                    console.log('Enderman has been loaded');
-                }
-            }
-        );
+        // this.loadModel(
+        //     'enderman',
+        //     new THREE.Vector3(8, 0.6, 10),
+        //     new THREE.Vector3(0.025, 0.025, 0.025),
+        //     new THREE.Euler(0, toRadians(-90), 0),
+        //     {
+        //         playAnimations: false,
+        //         loop: false,
+        //         onLoad: () => {
+        //             console.log('Enderman has been loaded');
+        //         }
+        //     }
+        // );
 
     }
 

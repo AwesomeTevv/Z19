@@ -70,7 +70,7 @@ html, body {
     height: 1em;
     /* background: white; */
     text-shadow: 0 0 0 var(--white);
-    color: var(--fourth);
+    color: var(--white);
     animation: blink 0.7s infinite alternate;
 }
 
