@@ -78,7 +78,7 @@ class World {
         // this.scene.fog = new THREE.Fog(Colours.SKY, 0.1, 50);
 
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.0;
+        this.renderer.toneMappingExposure = 0.6;
         
         // Enable shadows for spotlight effect
         this.renderer.shadowMap.enabled = true;
@@ -138,9 +138,9 @@ class World {
      */
     updateSkyboxRotation() {
         if (this.rotatingSkybox) {
-            this.rotatingSkybox.rotation.y += 0.0005;
-            this.rotatingSkybox.rotation.x += 0.0005;
-            this.rotatingSkybox.rotation.z += 0.0005;
+            this.rotatingSkybox.rotation.y += 0.00001;
+            this.rotatingSkybox.rotation.x += 0.00001;
+            this.rotatingSkybox.rotation.z += 0.00001;
         }
     }
 
